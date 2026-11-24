@@ -8,10 +8,6 @@ const boards = [
 
 ]
 
-const users = [
-
-]
-
 function createBoardElement (htmlTag, board) {
 
     const container = document.createElement(htmlTag)
@@ -194,8 +190,6 @@ function validateName(
 
     }
 
-    return errors
-
 }
 
 function validatePassword(
@@ -213,14 +207,31 @@ function validatePassword(
 
 }
 
+function validateEmail(
+    data,
+    errors
+) {
+
+    /** @type {HTMLInputElement} */
+    const emailInput = document.querySelector("#email")
+
+    if (!emailInput.checkValidity()) {
+
+        errors.push("email")
+
+    }
+
+}
+
 function validateData(
     data
 ) {
 
     const errors = []
     
-    validateName(data)
-    validatePassword(data)
+    validateName(data, errors)
+    validatePassword(data, errors)
+    validateEmail(data, errors)
 
     return errors
 
@@ -239,7 +250,6 @@ function renderNameErrors(
         usernameInput.classList.add("input-invalid")
         usernameInput.setAttribute("aria-invalid", "true")
         usernameErrorField.textContent = "Некорректное имя"
-        usernameErrorField.style.color = "red"
 
     } else {
 
@@ -267,7 +277,6 @@ function renderPasswordErrors(
         passwordInput.setAttribute("aria-invalid", "true")
 
         passwordErrorField.textContent = "Некорректый формат пароля"
-        passwordErrorField.style.color = "red"
 
     } else {
 
@@ -279,20 +288,43 @@ function renderPasswordErrors(
 
 }
 
+function renderEmailErrors(
+    errors
+) {
+
+    const emailInput = document.querySelector("#email")
+    const emailErrorField = document.querySelector("#email-error")
+
+    if (errors.includes("email")) {
+
+        emailInput.classList.add("input-invalid")
+        emailInput.setAttribute("aria-invalid", "true")
+
+        emailErrorField.textContent = "Некорректый формат email"
+
+    } else {
+
+        emailInput.classList.remove("input-invalid")
+        emailInput.setAttribute("aria-invalid", "false")
+        emailErrorField.textContent = ""
+
+    }
+
+}
+
 function renderErrors(
     errors
 ) {
 
     renderNameErrors(errors)
     renderPasswordErrors(errors)
+    renderEmailErrors(errors)
 
 }
 
 const form = document.querySelector("#register-form")
 
 form.addEventListener("submit", function (event) {
-
-    renderErrors([])
 
     event.preventDefault()
 
@@ -308,15 +340,6 @@ form.addEventListener("submit", function (event) {
         return false
 
     }
-
-    users.push(
-        {
-            id: users.reduce((max, user) => (user.id > max ? user.id : max), 0) + 1,
-            email: data["email"],
-            name: data["name"],
-            password: data["password"]
-        }
-    )
     
     const formSuccess = document.querySelector("#form-success")
     formSuccess.textContent = "Данные прошли проверку"
@@ -325,7 +348,11 @@ form.addEventListener("submit", function (event) {
 
 })
 
-form.addEventListener("change", function (event) {
+form.addEventListener("input", function (event) {
+
+
+    const formSuccess = document.querySelector("#form-success")
+    formSuccess.textContent = ""
 
     const target = event.target
 
@@ -344,6 +371,12 @@ form.addEventListener("change", function (event) {
         validatePassword(data, errors)
         renderPasswordErrors(errors)
     
+    } else if (target.id === "email") {
+
+        data["email"] = target.value
+        validateEmail(data, errors)
+        renderEmailErrors(errors)
+
     }
 
 })

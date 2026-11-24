@@ -21,3 +21,15 @@ input {
     display: block;
 
 }
+
+.field-error {
+
+    color: red
+
+}
+
+.input-invalid {
+
+    border: 2px solid red;
+
+}

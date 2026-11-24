@@ -29,9 +29,10 @@
     <button id="board-title-submit" type="button">Создать новую доску</button>
     <div class="error"></div>
 
-    <form id="register-form">
+    <form id="register-form" novalidate>
         <label for="email">Адрес электронной почты</label>
         <input type="email" name="email" id="email" required>
+        <span class="field-error" id="email-error"></span>
 
         <label for="name">Имя</label>
         <input type="text" name="name" id="name">
@@ -44,7 +45,6 @@
         <button type="submit" id="register-submit-button">Отправить</button>
         <span id="form-success"></span>
     </form>
-
     
 </body>
 </html>
