@@ -326,6 +326,9 @@ const form = document.querySelector("#register-form")
 
 form.addEventListener("submit", function (event) {
 
+    const formSuccess = document.querySelector("#form-success")
+    formSuccess.textContent = ""
+
     event.preventDefault()
 
     const formData = new FormData(form)
@@ -334,22 +337,20 @@ form.addEventListener("submit", function (event) {
 
     const errors = validateData(data)
 
-    if (errors.length > 0) {
+    renderErrors(errors)
 
-        renderErrors(errors)
-        return false
+    if (errors.length === 0) {
+
+        const formSuccess = document.querySelector("#form-success")
+        formSuccess.textContent = "Данные прошли проверку"
+
+        event.target.reset()
 
     }
-    
-    const formSuccess = document.querySelector("#form-success")
-    formSuccess.textContent = "Данные прошли проверку"
-
-    event.target.reset()
 
 })
 
 form.addEventListener("input", function (event) {
-
 
     const formSuccess = document.querySelector("#form-success")
     formSuccess.textContent = ""
