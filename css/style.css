@@ -1,0 +1,23 @@
+.error {
+
+    color: red;
+
+}
+
+label {
+
+    margin-top: 10px;
+    display: block;
+
+}
+
+input {
+    display: block;
+}
+
+#register-submit-button {
+
+    margin-top: 10px;
+    display: block;
+
+}

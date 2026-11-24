@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/lesson-2.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="page-title">Мои доски</h1>
+
+    <button id="change-title" type="button">
+        Изменить заголовок
+    </button>
+
+    <h2>Список досок</h2>
+    <ul id="board-list" data-mode="all"></ul>
+
+    <button id="show-public" type="button">
+        Показать публичные доски
+    </button>
+
+    <button id="show-all" type="button">
+        Показать все доски
+    </button>
+
+    <input id="board-title-input" type="text" placeholder="Название доски">
+    <button id="board-title-submit" type="button">Создать новую доску</button>
+    <div class="error"></div>
+
+    <form id="register-form">
+        <label for="email">Адрес электронной почты</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="name">Имя</label>
+        <input type="text" name="name" id="name">
+        <span class="field-error" id="name-error"></span>
+
+        <label for="password">Пароль</label>
+        <input type="password" name="password" id="password">
+        <span class="field-error" id="password-error"></span>
+        
+        <button type="submit" id="register-submit-button">Отправить</button>
+        <span id="form-success"></span>
+    </form>
+
+    
+</body>
+</html>
